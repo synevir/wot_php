@@ -53,7 +53,7 @@
       $query = "SELECT $columns FROM t1 $where  ORDER BY $order_by $sort LIMIT $limit";
       if (!$data = mysqli_query($dbc, $query))
 	    echo 'query error - '.$query;
-//       echo "<br> $query <br>\n";
+//        echo "<br> $query <br>\n";
       $column = explode(",",$columns);
 
       echo "<table border=1>\n";
@@ -287,6 +287,10 @@ $txt_sort_order		 = print_text($dbc,'sorting_by',$lang);
 $txt_types_tanks	 = print_text($dbc,'types_tank',$lang);
 $txt_country		 = print_text($dbc,'country',$lang);
 
+
+// *********** таблица фильтров колонок//table filter's columns by "php" **********
+// ********************************************************************************
+
   echo "<form name=\"select_form\" method=\"post\" action=\"".$_SERVER['PHP_SELF']."\">\n";
   echo "  <input type=\"submit\" value=\"$txt_submit_button_value\" name=\"submit_button\" /><br />\n";
   echo "<table border=0 >\n";
@@ -310,7 +314,7 @@ $txt_country		 = print_text($dbc,'country',$lang);
 <!--*********** таблица фильтров колонок//table filter's columns ********** 
 
 <form name="select_form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-   <input type="submit" value="Применить" name="submit_button" /><br />
+   <input type="submit" value="Применить выбранные фильты" name="submit_button" /><br />
    <table border=0 >
       <tr>
 	  <td align="center">строк на страницу:<br />
@@ -366,7 +370,7 @@ $txt_country		 = print_text($dbc,'country',$lang);
       if (!$data = mysqli_query($dbc, $query))
 	    echo 'query error - '.$query;
 while ($row = mysqli_fetch_array($data)) 
-  echo "<br>$row[0]";
+  echo "<br>$row[0]"."-$order_by";
 
 
   mysqli_close($dbc);
