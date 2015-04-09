@@ -3,14 +3,24 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script src="./JS/script.js"></script>   
     <title>Wold Of Tanks farm table page</title>
 </head>
 
-<body BGCOLOR="#E6E8fA" text="#000002" link="#666699" vlink="#666699" alink = "#333366" BACKGROUND = "background.jpg">
+<body BGCOLOR="#E6E8fA" text="#000002" link="#666699" vlink="#666699" alink = "#333366" BACKGROUND = "IMG/background.jpg">
 
-  <p>The current date is <?php print (date ("D M d H:i:s T Y")); ?>.</p>
-  <hr />
+	<table border=0 width=100%>
+	<tr>
+		<td> The current date is <?php print (date ("D M d H:i:s T Y")); ?>. </td>
+		<td align="right">
+		<a href="/index.php?&lang=rus"><img src="IMG/rus.gif" border=0 alt="Russian"></a>
+		&nbsp;
+		<a href="/index.php?&lang=eng"><img src="IMG/eng.gif" border=0 alt="English"></a>
+		</td>
+	</tr>
+	</table>
+
+	<hr />
+
       Что это за сайт, что за цифры и зачем все это нужно  =>
       <a href="about.htm">  ccылка </a>
   <p>На этой странице представлена таблица доходности всей техники игры
@@ -144,29 +154,23 @@
 
 <!-- Фильтры колонок под спойлером
 // Checkboxes fiters under spoiler      -->
-    <div class="spoil">
-    <div class="smallfont">
-    <hr />
-	<input type="button" value="Выбор колонок для вывода" class="input-button" 
-	      onclick=
-		"if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '')
-		    { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; 
-		    this.innerText = ''; this.value = 'Свернуть'; } 
-		else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; 
-		    this.innerText = ''; this.value = 'Развернуть фильтры'; }">
-    </div>
-    <div class="alt2">
-    <div style="display: none;">
-    Select columns for display/ Выберите колонки для отображения
-	  <?php
-	    echo MakeCheckBoxsInTable('columns', $check_boxs, $checked_boxs, 5);
-	  ?>     
-    </div>
-    </div>
+ <div class="spoil">
+	<div class="smallfont">
+	<hr />
+	    <input type="button" value="Выбор колонок для вывода" class="input-button" id ="btn_spoiler">
+	</div>
+	<div class="alt2">
+		<div id="div_spoiler" style="display: none;">
+		    Select columns for display/ Выберите колонки для отображения
+		    <?php
+			echo MakeCheckBoxsInTable('columns', $check_boxs, $checked_boxs, 5);
+		    ?>     
+		</div>
+	</div>
     </div>
     <hr />
 
-
+   
 <!--****************** Output Main Table *********************************************** -->
 
 <?php
@@ -181,19 +185,41 @@ echo '<br /> режим сортировки: '.$order_by;
   generate_table($dbc, $columns, $where, $order_by, $sort, $limit);
   
 
-//   $query = "SELECT length(name) FROM t1 ORDER BY level LIMIT $limit";
-//       if (!$data = mysqli_query($dbc, $query))
-// 	    echo 'query error - '.$query;
-//   while ($row = mysqli_fetch_array($data)) 
-//   echo "<br>$row[0]";
-
-
   mysqli_close($dbc);
 ?>
-
       </form>
 
-<a href="javascript:void(0)" onclick="count_rabbits()"> click for javascript</a> 
-<!-- <a href="http://localhost/wot/index.php?order_by=level" onclick="count_rabbits()"> click for javascript</a> -->
+	<script type="text/javascript" src="./JS/jquery-2.1.3.js"> </script>
+	<script type='text/javascript'>
+//-------------------------------------------------------------------------------------------------------
+//-----------------------	jquery section    ---------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+		// отображение и скрытие check_boxs таблицы выбора колонок для отображения в итоговой таблице
+		$(document).ready(function(){
+			var flag = true;
+		
+			$("#btn_spoiler").click(function(){
+				// change value label for button "#btn_spoiler"
+				if(flag) {
+					this.value="Скрыть ↑↑↑↑↑↑↑↑";
+					flag = false;
+				}
+				else {
+					this.value="Показать ↓↓↓↓↓↓↓";
+					flag = true;
+				}
+				// animate hide&unhide check_boxs table in element "#div_spoiler"
+				return(this.tog = !this.tog) ?  $("#div_spoiler").slideDown(500) : $("#div_spoiler").slideUp(500);
+			});
+			
+	});
+//-------------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+	</script>
+
+
+      
+      
+
   </body>
 </html>
