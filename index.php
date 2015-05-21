@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="CSS/anima.css">
     <title>Wold Of Tanks farm table page</title>
 </head>
 
@@ -19,21 +20,66 @@
 	</tr>
 	</table>
 
+<!-- **************************  блок анимации   *********************************
+*******************************************************************************-->
+<script type="text/javascript" src="./JS/jquery-2.1.3.js"> </script>
+<script type="text/javascript" src="./JS/tank_anima.js">   </script>
+<div id="wrap2">
+		<img id="redsquare" src="./ICO/china-Ch01_Type59.png"/>
+</div>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		$("#wrap2").css("width", $(window).width()*0.9);
+		var tank_width  = parseInt( $("#redsquare").css("width") );
+		var wrap_width  = parseInt( $("#wrap2").css("width") );
+		var point_right = wrap_width - tank_width - 8;
+		var spend = 5000;
+		var tank  = ico_prefix + array_tank_ico[0];
+// 		$("#path_to_ico").html(tank);    					// output debug info to html
+
+  		moveTank(tank, point_right, tank_width, spend+1000);
+ 		var interval_id = setInterval(moveTank, 18000, tank, point_right, tank_width, spend);
+
+		var stop_flag = false;
+ 		$("#redsquare").mouseover(function(){
+			if (!stop_flag){
+				alert("Для прекращения анимации кликните на пути танка");
+				stop_flag = true;
+			}
+		})
+
+		// stop animate
+ 		$("#wrap2").click(function(){
+			clearInterval(interval_id);
+		})
+
+	})
+</script>
+
+<!-- ************************************************************************* -->
+
 	<hr />
+	<p id="path_to_ico"> для отключения анимации кликнуть на иконке танка </p>
+	<br>
 
       Что это за сайт, что за цифры и зачем все это нужно  =>
       <a href="about.htm">  ccылка </a>
-  <p>На этой странице представлена таблица доходности всей техники игры
-  "World of Tanks". Любителям танковых сражений эта таблица поможет проанализировать различные показатели
-  боевых машин и целесообразность преобретения той или иной машины, в зависимости от целей, которые поставил себе
-  игрок</p>
+  <p>
+	На этой странице представлена таблица доходности всей техники игры
+	"World of Tanks". Любителям танковых сражений эта таблица поможет проанализировать различные показатели
+	боевых машин и целесообразность преобретения той или иной машины, в зависимости от целей, которые поставил
+	себе  игрок
+  </p>
   <hr />
 
 
 <?php
 
 //-------------------------- Main code -------------------------------------
-  require_once('connect.php');			// data for connect to MySQL database
+
+  require_once('connect.php');				// data for connect to MySQL database
   require_once('create_functions.php');		// functions for create forms and tables
 
   if (!$dbc=mysqli_connect(DB_HOST,DB_USER, DB_PASSWORD, DB_NAME))
@@ -170,7 +216,7 @@
     </div>
     <hr />
 
-   
+
 <!--****************** Output Main Table *********************************************** -->
 
 <?php
@@ -183,7 +229,7 @@ if (isset($_GET['order_by']) ){
 
 echo '<br /> режим сортировки: '.$order_by;
   generate_table($dbc, $columns, $where, $order_by, $sort, $limit);
-  
+
 
   mysqli_close($dbc);
 ?>
@@ -199,7 +245,7 @@ echo '<br /> режим сортировки: '.$order_by;
 			var flag = true;
 		
 			$("#btn_spoiler").click(function(){
-				// change value label for button "#btn_spoiler"
+			// change value label for button "#btn_spoiler"
 				if(flag) {
 					this.value="Скрыть ↑↑↑↑↑↑↑↑";
 					flag = false;
@@ -208,7 +254,7 @@ echo '<br /> режим сортировки: '.$order_by;
 					this.value="Показать ↓↓↓↓↓↓↓";
 					flag = true;
 				}
-				// animate hide&unhide check_boxs table in element "#div_spoiler"
+			// animate hide&unhide check_boxs table in element "#div_spoiler"
 				return(this.tog = !this.tog) ?  $("#div_spoiler").slideDown(500) : $("#div_spoiler").slideUp(500);
 			});
 			
@@ -217,9 +263,6 @@ echo '<br /> режим сортировки: '.$order_by;
 //-------------------------------------------------------------------------------------------------------
 	</script>
 
-
-      
-      
 
   </body>
 </html>

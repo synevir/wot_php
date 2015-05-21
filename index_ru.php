@@ -5,15 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Wold Of Tanks farm table page</title>
 </head>
-<body BGCOLOR="#E6E8fA" text="#000002" link="#666699" vlink="#666699" alink = "#333366" BACKGROUND = "background.jpg">
+<body BGCOLOR="#E6E8fA" text="#000002" link="#666699" vlink="#666699" alink = "#333366" BACKGROUND = "IMG/background.jpg">
 
   <table border=0 width=100%>
     <tr>
       <td> The current date is <?php print (date ("D M d H:i:s T Y")); ?>. </td>
       <td align="right">
-	<a href="/index.php?&lang=rus"><img src="Gif/rus.gif" border=0 alt="Russian"></a>
+	<a href="/index.php?&lang=rus"><img src="IMG/rus.gif" border=0 alt="Russian"></a>
 	&nbsp;
-	<a href="/index.php?&lang=eng"><img src="Gif/eng.gif" border=0 alt="English"></a>
+	<a href="/index.php?&lang=eng"><img src="IMG/eng.gif" border=0 alt="English"></a>
       </td>
     </tr>
   </table>
@@ -53,7 +53,7 @@
       $query = "SELECT $columns FROM t1 $where  ORDER BY $order_by $sort LIMIT $limit";
       if (!$data = mysqli_query($dbc, $query))
 	    echo 'query error - '.$query;
-//        echo "<br> $query <br>\n";
+        echo "<br> $query <br>\n";
       $column = explode(",",$columns);
 
       echo "<table border=1>\n";
@@ -79,17 +79,18 @@
 	  $odd_value = $odd_value + 1;
 
 	  // выравнивание колонок по центру кроме name & country
+	  // вывод данных из массива данных
  	  foreach($column as $i) 
 		if ( $i == 'name' OR $i == 'country' )
 		    echo '<td>'. htmlspecialchars( $row[$i] ).'</td> ';
 
 ///////////////// uncomment next rows for highlighting profit colums /////////////////////
-//											//
-// 		else									//
-// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )	//
-// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 		//
-//			      htmlspecialchars( $row[$i] ).' </td>'; 			//
-//											//
+//														    //
+// 		else												    //
+// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )		    //
+// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 		    //
+//			      htmlspecialchars( $row[$i] ).' </td>'; 				    //
+//														    //
 //////////////////////////////////////////////////////////////////////////////////////////
 
 		else
@@ -210,23 +211,27 @@
 // выборка из таблицы всех колонок для фильтров
   $query = 'SHOW COLUMNS FROM t1';
   if(!$data = mysqli_query($dbc, $query))
-       echo 'query error<br>';
+	echo 'query error<br>';
 
 // формирование массива для check_boxs и select фильтров
   while($row = mysqli_fetch_row($data)){
-				   //исключение из массива некоторых колонок $ignore_boxs
+  
+	// исключение из массива некоторых колонок $ignore_boxs
       if (! in_array($row[0],$ignore_boxs) )
-	  $check_boxs[] = $row[0];	 
-				   //извлечение типов техники в строку $pop_menu_type_values
+		$check_boxs[] = $row[0];	 
+	  
+	// извлечение типов техники в строку $pop_menu_type_values
       if ( $row[0] == 'type' AND substr($row[1],0,4) == 'enum' ){
- 	  $pop_menu_type_values = explode(",", substr($row[1],5,strlen($row[1])-6) );
-	  $pop_menu_type_values = preg_replace('/\'/','',$pop_menu_type_values);
-	  array_unshift($pop_menu_type_values, "all");
-      }				  //извлечение названий стран в строку $pop_menu_country_values
+		$pop_menu_type_values = explode(",", substr($row[1],5,strlen($row[1])-6) );
+		$pop_menu_type_values = preg_replace('/\'/','',$pop_menu_type_values);
+		array_unshift($pop_menu_type_values, "all");
+      }
+
+    // извлечение названий стран в строку $pop_menu_country_values
       if ( $row[0] == 'country2' AND substr($row[1],0,4) == 'enum' ){
- 	  $pop_menu_country_values = explode(",", substr($row[1],5,strlen($row[1])-6) );
-	  $pop_menu_country_values = preg_replace('/\'/','',$pop_menu_country_values);
-	  array_unshift($pop_menu_country_values, 'all');
+		$pop_menu_country_values = explode(",", substr($row[1],5,strlen($row[1])-6) );
+		$pop_menu_country_values = preg_replace('/\'/','',$pop_menu_country_values);
+		array_unshift($pop_menu_country_values, 'all');
       }
 
   }
@@ -256,22 +261,28 @@
 	  $_array = array();		   // array of WHERE filters
 
 	  if (isset($_POST['type_popUp']) AND $_POST['type_popUp'] != 'all'){
-	    $_array['type'] = $_POST['type_popUp'];
-		      $type = $_POST['type_popUp'];
+		$_array['type'] = $_POST['type_popUp'];
+			    $type = $_POST['type_popUp'];
 	  }
 
 	  if (isset($_POST['country2']) AND $_POST['country2'] != 'all'){
-	    $_array['country'] = $_POST['country2'];
-		     $country2 = $_POST['country2'];
+		$_array['country'] = $_POST['country2'];
+		         $country2 = $_POST['country2'];
 	  }
       
 	  $where = CreateWhere($_array);
+	  
+	  // колонка по которой производится сортировка
+	  if (isset($_POST['order_by']) )   $order_by = $_POST['order_by'];
+	  
       }
 
 // =======================================================================
 //		 		Global filters
+
 // limits value for output pop_menu 'filter amount rows in data table'
       $pop_menu_limit_values = array(10,20,40);
+      
 // sort order for output pop_menu 'DESC INC'
       $pop_menu_sorting_value = array('по убыванию','по возрастанию');
       if ($sort == 'DESC') 
@@ -284,7 +295,7 @@
 $txt_submit_button_value = print_text($dbc,'submit_button_value',$lang);
 $txt_strings_per_page 	 = print_text($dbc,'strings_per_page',$lang);
 $txt_sort_order		 = print_text($dbc,'sorting_by',$lang);
-$txt_types_tanks	 = print_text($dbc,'types_tank',$lang);
+$txt_types_tanks	 	 = print_text($dbc,'types_tank',$lang);
 $txt_country		 = print_text($dbc,'country',$lang);
 
 
@@ -307,11 +318,14 @@ $txt_country		 = print_text($dbc,'country',$lang);
   echo "	  <td align=\"center\">$txt_country :<br />\n";
   echo 		MakePopupMenu('country2', $pop_menu_country_values, $country2);
   echo "	  </td>\n";
+  echo "	  <td align=\"center\">сортировать по :<br />\n";
+  echo 		MakePopupMenu('order_by', $check_boxs, $order_by);
+  echo "	  </td>\n";
   echo "	</tr>";
   echo "</table>";
 
 ?>
-<!--*********** таблица фильтров колонок//table filter's columns ********** 
+<!--************* таблица фильтров колонок//table filter's columns ************ 
 
 <form name="select_form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
    <input type="submit" value="Применить выбранные фильты" name="submit_button" /><br />
@@ -336,24 +350,24 @@ $txt_country		 = print_text($dbc,'country',$lang);
 <!-- Фильтры колонок под спойлером
 // Checkboxes fiters under spoiler      -->
     <div class="spoil">
-    <div class="smallfont">
-    <hr />
-	<input type="button" value="Выбор колонок для вывода" class="input-button" 
-	      onclick=
-		"if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '')
-		    { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; 
-		    this.innerText = ''; this.value = 'Свернуть'; } 
-		else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; 
-		    this.innerText = ''; this.value = 'Развернуть фильтры'; }">
-    </div>
-    <div class="alt2">
-    <div style="display: none;">
-    Select columns for display/ Выберите колонки для отображения
-	  <?php
-	    echo MakeCheckBoxsInTable('columns', $check_boxs, $checked_boxs, 5);
-	  ?>     
-    </div>
-    </div>
+	<div class="smallfont">
+	<hr />
+	    <input type="button" value="Выбор колонок для вывода" class="input-button" 
+		  onclick=
+		    "if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '')
+			{ this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; 
+			this.innerText = ''; this.value = 'Свернуть'; } 
+		    else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; 
+			this.innerText = ''; this.value = 'Развернуть фильтры'; }">
+	</div>
+	<div class="alt2">
+		<div style="display: none;">
+		    Select columns for display/ Выберите колонки для отображения
+		    <?php
+			echo MakeCheckBoxsInTable('columns', $check_boxs, $checked_boxs, 5);
+		    ?>     
+		</div>
+	</div>
     </div>
     <hr />
 
@@ -369,7 +383,8 @@ $txt_country		 = print_text($dbc,'country',$lang);
   $query = "SELECT length(name) FROM t1 ORDER BY level LIMIT $limit";
       if (!$data = mysqli_query($dbc, $query))
 	    echo 'query error - '.$query;
-while ($row = mysqli_fetch_array($data)) 
+	    
+  while ($row = mysqli_fetch_array($data))
   echo "<br>$row[0]"."-$order_by";
 
 

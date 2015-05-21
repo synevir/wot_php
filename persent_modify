@@ -1,0 +1,5 @@
+команды для преобразования величин процента в таблицах для WoT
+
+update t1 SET survived_persent = survived_persent * 100;
+select name, survived_persent from t1 limit 10;
+Alter table t1 modify `survived_persent` decimal(5,2);
