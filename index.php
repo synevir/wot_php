@@ -12,6 +12,11 @@
 	<table border=0 width=100%>
 	<tr>
 		<td> The current date is <?php print (date ("D M d H:i:s T Y")); ?>. </td>
+<!--		<td>
+			<div id="wrap2">
+				<img id="redsquare" src="./ICO/china-Ch01_Type59.png"/>
+			</div>
+		</td>-->
 		<td align="right">
 		<a href="/index.php?&lang=rus"><img src="IMG/rus.gif" border=0 alt="Russian"></a>
 		&nbsp;
@@ -20,43 +25,9 @@
 	</tr>
 	</table>
 
-<!-- **************************  блок анимации   *********************************
-*******************************************************************************-->
-<script type="text/javascript" src="./JS/jquery-2.1.3.js"> </script>
-<script type="text/javascript" src="./JS/tank_anima.js">   </script>
-<div id="wrap2">
+	<div id="wrap2">
 		<img id="redsquare" src="./ICO/china-Ch01_Type59.png"/>
-</div>
-
-<script type="text/javascript">
-
-	$(document).ready(function(){
-		$("#wrap2").css("width", $(window).width()*0.9);
-		var tank_width  = parseInt( $("#redsquare").css("width") );
-		var wrap_width  = parseInt( $("#wrap2").css("width") );
-		var point_right = wrap_width - tank_width - 8;
-		var spend = 5000;
-		var tank  = ico_prefix + array_tank_ico[0];
-// 		$("#path_to_ico").html(tank);    					// output debug info to html
-
-  		moveTank(tank, point_right, tank_width, spend+1000);
- 		var interval_id = setInterval(moveTank, 18000, tank, point_right, tank_width, spend);
-
-		var stop_flag = false;
- 		$("#redsquare").mouseover(function(){
-			if (!stop_flag){
-				alert("Для прекращения анимации кликните на пути танка");
-				stop_flag = true;
-			}
-		})
-
-		// stop animate
- 		$("#wrap2").click(function(){
-			clearInterval(interval_id);
-		})
-
-	})
-</script>
+	</div>
 
 <!-- ************************************************************************* -->
 
@@ -236,6 +207,7 @@ echo '<br /> режим сортировки: '.$order_by;
       </form>
 
 	<script type="text/javascript" src="./JS/jquery-2.1.3.js"> </script>
+	<script type="text/javascript" src="./JS/tank_anima.js">   </script>
 	<script type='text/javascript'>
 //-------------------------------------------------------------------------------------------------------
 //-----------------------	jquery section    ---------------------------------------------------------
@@ -258,10 +230,49 @@ echo '<br /> режим сортировки: '.$order_by;
 				return(this.tog = !this.tog) ?  $("#div_spoiler").slideDown(500) : $("#div_spoiler").slideUp(500);
 			});
 			
+
+
+//**************************  блок анимации   ***********************************
+//*******************************************************************************
+
+		$("#wrap2").css("width", $(window).width()*0.9);
+		var tank_width  = parseInt( $("#redsquare").css("width") );
+		var wrap_width  = parseInt( $("#wrap2").css("width") );
+		var point_right = wrap_width - tank_width - 8;
+		var point_left  = 8;
+		var spend = 5000;
+		var tank  = ico_prefix + array_tank_ico[0];
+// 		$("#path_to_ico").html(tank);    					// output debug info to html
+
+  		moveTank(tank, point_right, point_left, tank_width, spend+1000);
+ 		var interval_id = setInterval(moveTank, 18000, tank, point_right, point_left, tank_width, spend);
+
+		var stop_flag = false;
+ 		$("#redsquare").mouseover(function(){
+			if (!stop_flag){
+				alert("Для прекращения анимации кликните на пути танка");
+				stop_flag = true;
+			}
+		})
+
+		// stop animate
+ 		$("#wrap2").click(function(){
+			clearInterval(interval_id);
+		})
+
 	});
+    </script>
 //-------------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------
-	</script>
+
+
+
+
+
+
+
+
+
 
 
   </body>

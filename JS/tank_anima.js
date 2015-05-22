@@ -13,7 +13,7 @@ function reverseName(name){
 }
 
 
-function moveTank(path_to_ico, point_right, tank_width, spend){
+function moveTank(path_to_ico, point_right, point_left, tank_width, spend){
 	$("#redsquare").attr("src",path_to_ico);
    	$("#redsquare").animate({left:point_right}, spend);
   	$("#redsquare").animate({left:'+=60',"width": (tank_width*0.05)},"slow",
@@ -23,7 +23,7 @@ function moveTank(path_to_ico, point_right, tank_width, spend){
  		}
   	);
  	$("#redsquare").animate( {left:'-=60',"width": tank_width},"slow");
- 	$("#redsquare").animate( {left:8}, spend);
+ 	$("#redsquare").animate( {left: point_left}, spend);
  	$("#redsquare").animate( {left:'+=60',"width": (tank_width*0.05)},"slow",
  		function(){
  			$("#redsquare").attr("src", path_to_ico);
