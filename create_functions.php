@@ -14,26 +14,22 @@
       $query = "SELECT $columns FROM t1 $where  ORDER BY $order_by $sort LIMIT $limit";
       if (!$data = mysqli_query($dbc, $query))
 	    echo 'query error - '.$query;
-//       echo "<br> $query <br>\n";
+//        echo "<br> $query <br>\n";
       $column = explode(",",$columns);
 
-      echo "<table border=1>\n";
+      echo "<table border=1 class=\"align_table\">\n";
 // first row of table
       echo "  <tr>\n";
       foreach($column as $i) { 
-// variant with javascript
- 	  echo "<td> &nbsp&nbsp&nbsp&nbsp<b>
- 		<a id=\"$i\"
- 		  href=\"javascript:void(0)\" onclick=\"document.forms.select_form.submit();
- 		  return false;\"> $i
- 		</a>
- 		</b>&nbsp&nbsp&nbsp&nbsp</td>\n";
 
-// variant with $_GET
-	  /*echo "<td> &nbsp&nbsp&nbsp&nbsp<b>";
-// 	  echo "<a href=\"index.php?order_by=$i\" onclick=\"count_rabbit()  return false;\"> $i </a>"
-	  echo "<a href=\"index.php?order_by=$i\" onclick=\"count_rabbit()\"> $i </a>";
-	  */echo "</b>&nbsp&nbsp&nbsp&nbsp</td>\n";
+// variant with javascript
+		echo "	<td>
+		<div class=\"first_row\">
+				<a id=\"$i\" href=\"javascript:void(0)\" onclick=\"document.forms.select_form.submit();
+					return false;\"> $i
+				</a>
+		</div>
+	</td>\n";
        } 
 // 	    first row values as simple text
 // 	    echo "<td><b> $i </b></td>"; }
@@ -54,12 +50,12 @@
 		    echo '<td>'. htmlspecialchars( $row[$i] ).'</td> ';
 
 ///////////////// uncomment next rows for highlighting profit colums /////////////////////
-//											//
-// 		else									//
-// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )	//
-// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 		//
-//			      htmlspecialchars( $row[$i] ).' </td>'; 			//
-//											//
+//																						//
+// 		else																			//
+// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )				//
+// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 						//
+//			      htmlspecialchars( $row[$i] ).' </td>'; 								//
+//																						//
 //////////////////////////////////////////////////////////////////////////////////////////
 
 		else
@@ -89,7 +85,7 @@
 	if (!is_array($values) )
 	    return ("make_popup_menu: values argument must be an array");
 
-     	$str = "<select name=\"$name\">\n";
+    $str = "<select name=\"$name\">\n";
 	foreach($values as $val){
 	    $val = htmlspecialchars($val);
 	    if ($val == $selected)  
@@ -116,7 +112,7 @@
 	if ( !is_array($checked_boxes) )
 	    return ("make_check_boxs: checked_boxs argument must be an array");
 
-	$string_result = "<table border=0>\n<tr>\n   <td nowrap>\n";
+	$string_result = "<table border=1>\n<tr>\n   <td nowrap>\n";
 	$i = 0;
         foreach($values as $cb_name){
 	    $i = $i+1;

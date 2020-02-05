@@ -201,6 +201,7 @@
   $limit    = 20;
   $type	    = 'all';
   $country2 = 'all';
+  $level	= 'all';
 //--------------------------------------------------------------------------
 
 // выбор выводимыx колонок
@@ -234,6 +235,7 @@
 		array_unshift($pop_menu_country_values, 'all');
       }
 
+      $pop_menu_level_values = array("all", 1, 2, 3, 4, 5, 6, 7, 8, 9,10);
   }
 
 
@@ -262,7 +264,7 @@
 
 	  if (isset($_POST['type_popUp']) AND $_POST['type_popUp'] != 'all'){
 		$_array['type'] = $_POST['type_popUp'];
-			    $type = $_POST['type_popUp'];
+			      $type = $_POST['type_popUp'];
 	  }
 
 	  if (isset($_POST['country2']) AND $_POST['country2'] != 'all'){
@@ -270,6 +272,11 @@
 		         $country2 = $_POST['country2'];
 	  }
       
+      if (isset($_POST['level_popUp']) AND $_POST['level_popUp'] != 'all'){
+	    $_array['level'] = $_POST['level_popUp'];
+				  $level = $_POST['level_popUp'];
+	  }
+
 	  $where = CreateWhere($_array);
 	  
 	  // колонка по которой производится сортировка
@@ -294,9 +301,10 @@
 
 $txt_submit_button_value = print_text($dbc,'submit_button_value',$lang);
 $txt_strings_per_page 	 = print_text($dbc,'strings_per_page',$lang);
-$txt_sort_order		 = print_text($dbc,'sorting_by',$lang);
+$txt_sort_order			 = print_text($dbc,'sorting_by',$lang);
 $txt_types_tanks	 	 = print_text($dbc,'types_tank',$lang);
-$txt_country		 = print_text($dbc,'country',$lang);
+$txt_country		 	 = print_text($dbc,'country',$lang);
+$txt_level				 = print_text($dbc,'level',$lang);
 
 
 // *********** таблица фильтров колонок//table filter's columns by "php" **********
@@ -314,6 +322,9 @@ $txt_country		 = print_text($dbc,'country',$lang);
   echo "	  </td>\n";
   echo "	  <td align=\"center\">$txt_types_tanks :<br />\n";
   echo 		MakePopupMenu('type_popUp', $pop_menu_type_values, $type);
+  echo "	  </td>\n";
+  echo "	  <td align=\"center\">$txt_level :<br />\n";
+  echo 		MakePopupMenu('level_popUp', $pop_menu_level_values, $level);
   echo "	  </td>\n";
   echo "	  <td align=\"center\">$txt_country :<br />\n";
   echo 		MakePopupMenu('country2', $pop_menu_country_values, $country2);
@@ -354,10 +365,10 @@ $txt_country		 = print_text($dbc,'country',$lang);
 	<hr />
 	    <input type="button" value="Выбор колонок для вывода" class="input-button" 
 		  onclick=
-		    "if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '')
-			{ this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; 
-			this.innerText = ''; this.value = 'Свернуть'; } 
-		    else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; 
+    		    "if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '')
+			{ this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = '';
+			this.innerText = ''; this.value = 'Свернуть'; }
+		    else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none';
 			this.innerText = ''; this.value = 'Развернуть фильтры'; }">
 	</div>
 	<div class="alt2">
@@ -365,7 +376,7 @@ $txt_country		 = print_text($dbc,'country',$lang);
 		    Select columns for display/ Выберите колонки для отображения
 		    <?php
 			echo MakeCheckBoxsInTable('columns', $check_boxs, $checked_boxs, 5);
-		    ?>     
+		    ?>
 		</div>
 	</div>
     </div>

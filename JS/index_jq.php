@@ -83,16 +83,6 @@
  	  foreach($column as $i) 
 		if ( $i == 'name' OR $i == 'country' )
 		    echo '<td>'. htmlspecialchars( $row[$i] ).'</td> ';
-
-///////////////// uncomment next rows for highlighting profit colums /////////////////////
-//											//
-// 		else									//
-// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )	//
-// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 		//
-//			      htmlspecialchars( $row[$i] ).' </td>'; 			//
-//											//
-//////////////////////////////////////////////////////////////////////////////////////////
-
 		else
 		    echo '<td align="center">'. htmlspecialchars( $row[$i] ).'</td>'; 
 	  echo "</tr>\n";

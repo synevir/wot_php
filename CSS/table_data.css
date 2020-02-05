@@ -1,0 +1,30 @@
+.first_row {
+        color: red;
+      padding: 5px;
+       margin: 10;
+   text-align: center;
+  font-weight: bold;
+
+}
+
+.big_padding {
+     color: green;
+   padding: 0px 10px 0px 10px;
+text-align: center;
+}
+
+#filters_table{
+    margin: auto;   /* Отступы вокруг элемента относительно родительского элемента */
+   padding: 0px;    /* Поля вокруг элемента */
+}
+
+.align_table{
+  margin: auto;
+   width: 95%;
+}
+
+#submit_ceil{
+  background: #fd0;
+  text-align: left;
+       width: 15%;
+}
