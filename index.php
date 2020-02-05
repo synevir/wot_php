@@ -245,46 +245,46 @@
 //-------------------------------------------------------------------------------------------------------
 
 // отображение и скрытие check_boxs таблицы выбора колонок для отображения в итоговой таблице
-	$(document).ready(function(){
-		var flag = true;
+     $(document).ready(function(){
+        var flag = true;
 
-		$("#btn_spoiler").click(function(){
-		// change value label for button "#btn_spoiler"
-			if(flag) { this.value="Скрыть ↑↑↑↑↑↑↑↑"; flag = false; }
-			else     { this.value="Показать ↓↓↓↓↓↓"; flag = true;  }
+        $("#btn_spoiler").click(function(){
 
-		// animate hide&unhide check_boxs table in element "#div_spoiler"
-			return(this.tog = !this.tog) ? $("#div_spoiler").slideDown(500)
-										 : $("#div_spoiler").slideUp(500);
-		});
+             // change value label for button "#btn_spoiler"
+             if(flag) { this.value="Скрыть ↑↑↑↑↑↑↑↑"; flag = false; }
+             else     { this.value="Показать ↓↓↓↓↓↓"; flag = true;  }
+
+             // animate hide&unhide check_boxs table in element "#div_spoiler"
+             return(this.tog = !this.tog) ? $("#div_spoiler").slideDown(500) : $("#div_spoiler").slideUp(500);
+         });
 
 
 //**************************  блок анимации   ***********************************
 //*******************************************************************************
 
-		$("#wrap2").css("width", $(window).width()*0.9);
-		var tank_width  = parseInt( $("#redsquare").css("width") );
-		var wrap_width  = parseInt( $("#wrap2").css("width") );
-		var point_right = wrap_width - tank_width - 8;
-		var point_left  = 8;
-		var spend = 5000;
-		var tank  = ico_prefix + array_tank_ico[0];
+         $("#wrap2").css("width", $(window).width()*0.9);
+         var tank_width  = parseInt( $("#redsquare").css("width") );
+         var wrap_width  = parseInt( $("#wrap2").css("width") );
+         var point_right = wrap_width - tank_width - 8;
+         var point_left  = 8;
+         var spend = 5000;
+         var tank  = ico_prefix + array_tank_ico[0];
 
 //              moveTank(tank, point_right, point_left, tank_width, spend+1000);
- 		var interval_id = setInterval(moveTank, 18000, tank, point_right, point_left, tank_width, spend);
+         var interval_id = setInterval(moveTank, 18000, tank, point_right, point_left, tank_width, spend);
 
-		var stop_flag = false;
- 		$("#redsquare").mouseover(function(){
-			if (!stop_flag){
-				alert("Для прекращения анимации кликните на пути танка");
-				stop_flag = true;
-			}
-		})
+         var stop_flag = false;
+         $("#redsquare").mouseover(function(){
+             if (!stop_flag){
+                 alert("Для прекращения анимации кликните на пути танка");
+                 stop_flag = true;
+             }
+          })
 
-		// stop animate
- 		$("#wrap2").click(function(){
-			clearInterval(interval_id);
-		})
+           // stop animate
+          $("#wrap2").click(function(){
+              clearInterval(interval_id);
+         })
 
 
 // графическая кнопка закрытия анимации
