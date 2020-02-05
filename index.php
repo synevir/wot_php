@@ -32,8 +32,8 @@
 	</div>
 <!-- *******************************************************************************************
 ******************************************   button animate   **********************************-->
-<!-- 	<script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> -->
-		<!--
+<!-- <script class="cssdeck" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script> -->
+<!--
         <button class="cmn-toggle-switch cmn-toggle-switch__rot">
           <span>toggle menu</span>
         </button>-->
@@ -84,9 +84,9 @@
   $order_by = 'level';
   $sort     = 'DESC';
   $limit    = 20;
-  $type	    = 'all';
+  $type     = 'all';
   $country2 = 'all';
-  $level	= 'all';
+  $level    = 'all';
 //--------------------------------------------------------------------------
 
 // выбор выводимыx колонок
@@ -241,7 +241,7 @@
 	<script type="text/javascript" src="./JS/tank_anima.js">   </script>
 	<script type='text/javascript'>
 //-------------------------------------------------------------------------------------------------------
-//-----------------------	jquery section    ---------------------------------------------------------
+//-----------------------     jquery section    ---------------------------------------------------------
 //-------------------------------------------------------------------------------------------------------
 
 // отображение и скрытие check_boxs таблицы выбора колонок для отображения в итоговой таблице
@@ -257,7 +257,7 @@
 			return(this.tog = !this.tog) ? $("#div_spoiler").slideDown(500)
 										 : $("#div_spoiler").slideUp(500);
 		});
-			
+
 
 //**************************  блок анимации   ***********************************
 //*******************************************************************************
@@ -270,7 +270,7 @@
 		var spend = 5000;
 		var tank  = ico_prefix + array_tank_ico[0];
 
-//   		moveTank(tank, point_right, point_left, tank_width, spend+1000);
+//              moveTank(tank, point_right, point_left, tank_width, spend+1000);
  		var interval_id = setInterval(moveTank, 18000, tank, point_right, point_left, tank_width, spend);
 
 		var stop_flag = false;
@@ -303,13 +303,6 @@
 				});
 			}
 		});
-
-
-
-
-
-
-
 
 
 	});  // End of `$(document).ready(function()`
