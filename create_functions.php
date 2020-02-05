@@ -10,11 +10,10 @@
 <?php
 
    function generate_table($dbc,$columns,$where='', $order_by, $sort, $limit=4){
-      
+
       $query = "SELECT $columns FROM t1 $where  ORDER BY $order_by $sort LIMIT $limit";
       if (!$data = mysqli_query($dbc, $query))
 	    echo 'query error - '.$query;
-//        echo "<br> $query <br>\n";
       $column = explode(",",$columns);
 
       echo "<table border=1 class=\"align_table\">\n";
@@ -31,8 +30,6 @@
 		</div>
 	</td>\n";
        } 
-// 	    first row values as simple text
-// 	    echo "<td><b> $i </b></td>"; }
       echo "  </tr>\n";
 
 // Loop through the array of user data, formatting it as HTML table
@@ -50,12 +47,12 @@
 		    echo '<td>'. htmlspecialchars( $row[$i] ).'</td> ';
 
 ///////////////// uncomment next rows for highlighting profit colums /////////////////////
-//																						//
-// 		else																			//
-// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )				//
-// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 						//
-//			      htmlspecialchars( $row[$i] ).' </td>'; 								//
-//																						//
+//											//
+//		else									//
+//		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )	//
+//			echo '<td align="center" bgcolor="mediumaquamarine">'. 		//
+//			      htmlspecialchars( $row[$i] ).' </td>'; 			//
+//											//
 //////////////////////////////////////////////////////////////////////////////////////////
 
 		else
@@ -137,7 +134,7 @@
 
       $string='WHERE ';
       foreach($arr as $key => $val)
-	  $string .= "$key='$val' AND ";
+         $string .= "$key='$val' AND ";
 
       $string = substr($string, 0, strlen($string)-4 );
       return($string);
