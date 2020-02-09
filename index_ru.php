@@ -85,12 +85,12 @@
 		    echo '<td>'. htmlspecialchars( $row[$i] ).'</td> ';
 
 ///////////////// uncomment next rows for highlighting profit colums /////////////////////
-//														    //
-// 		else												    //
-// 		   if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )		    //
-// 			echo '<td align="center" bgcolor="mediumaquamarine">'. 		    //
-//			      htmlspecialchars( $row[$i] ).' </td>'; 				    //
-//														    //
+//                                                                                      //
+//      else                                                                            //
+//          if ( $i == 'profit_battle' OR $i == 'profit_battle_premium' )               //
+//          echo '<td align="center" bgcolor="mediumaquamarine">'.                      //
+//          htmlspecialchars( $row[$i] ).' </td>';                                      //
+//                                                                                      //
 //////////////////////////////////////////////////////////////////////////////////////////
 
 		else
@@ -220,7 +220,7 @@
 	// исключение из массива некоторых колонок $ignore_boxs
       if (! in_array($row[0],$ignore_boxs) )
 		$check_boxs[] = $row[0];	 
-	  
+
 	// извлечение типов техники в строку $pop_menu_type_values
       if ( $row[0] == 'type' AND substr($row[1],0,4) == 'enum' ){
 		$pop_menu_type_values = explode(",", substr($row[1],5,strlen($row[1])-6) );
@@ -242,21 +242,21 @@
 // ================== Grab data from the $_POST ============================
 // =========================================================================
       if (isset($_POST['limit']) ) { 
-	  $columns = '';
-	  $limit   = $_POST['limit'];
+        $columns = '';
+        $limit   = $_POST['limit'];
 
-	  if ($_POST['sort_popUp'] == 'по убыванию'){
-		$sort = '';		
-		$_POST['sort_popUp'] = 'по возрастанию';
-	  }
-	  else 
-		$sort = 'DESC';  	
+        if ($_POST['sort_popUp'] == 'по убыванию'){
+          $sort = '';
+          $_POST['sort_popUp'] = 'по возрастанию';
+        }
+        else
+          $sort = 'DESC';
 
-	  foreach($check_boxs as $val){
-	      if (isset($_POST[$val]) && $_POST[$val] == $val)
-		  $columns .=",$val";
-	  }
-	  $columns = substr($columns, 1);  // delete first "," in string
+        foreach($check_boxs as $val){
+          if (isset($_POST[$val]) && $_POST[$val] == $val)
+            $columns .=",$val";
+        }
+        $columns = substr($columns, 1);  // delete first "," in string
 
 // Формирование предиката WHERE для запроса и запоминание выбранных 
 // значений для <select checked=... > в PopUpMenu()
@@ -268,10 +268,10 @@
 	  }
 
 	  if (isset($_POST['country2']) AND $_POST['country2'] != 'all'){
-		$_array['country'] = $_POST['country2'];
-		         $country2 = $_POST['country2'];
-	  }
-      
+        $_array['country'] = $_POST['country2'];
+                 $country2 = $_POST['country2'];
+      }
+
       if (isset($_POST['level_popUp']) AND $_POST['level_popUp'] != 'all'){
 	    $_array['level'] = $_POST['level_popUp'];
 				  $level = $_POST['level_popUp'];
@@ -281,7 +281,7 @@
 	  
 	  // колонка по которой производится сортировка
 	  if (isset($_POST['order_by']) )   $order_by = $_POST['order_by'];
-	  
+
       }
 
 // =======================================================================
